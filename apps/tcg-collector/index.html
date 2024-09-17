@@ -31,6 +31,7 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
+					<li class="current"><a href="../../index.html">Home</a></li>
 					<li class="current"><a href="index.html">Overview</a></li>
 					<li>
 						<a href="terms.html">Terms and Conditions</a>
@@ -58,11 +59,15 @@
 						You're also working on a side menu for easier navigation, although it has limited main options
 						for now. The app is optimized for performance, ensuring efficient card storage and retrieval.
 					</p>
+
+					<!-- Image centered below the paragraph -->
+					<div style="text-align: center;">
+						<img src="../../images/tcg-graphic.png" alt="TCG Graphic" style="max-width: 100%; height: auto;" />
+					</div>
 				</div>
 			</section>
 		</article>
 
-		<!-- Footer -->
 		<!-- Footer -->
 		<section id="footer" class="wrapper">
 			<div class="title">Contact</div>
@@ -73,13 +78,13 @@
 
 						<!-- Contact Form -->
 						<section>
-							<form method="post" action="#">
+							<form id="contact-form">
 								<div class="row gtr-50">
 									<div class="col-6 col-12-small">
 										<input type="text" name="name" id="contact-name" placeholder="Name" />
 									</div>
 									<div class="col-6 col-12-small">
-										<input type="text" name="email" id="contact-email" placeholder="Email" />
+										<input type="email" name="email" id="contact-email" placeholder="Email" />
 									</div>
 									<div class="col-12 col-12-small">
 										<input type="text" name="subject" id="contact-subject" placeholder="Subject" />
@@ -94,6 +99,10 @@
 											<li><input type="reset" class="style2" value="Reset" /></li>
 										</ul>
 									</div>
+									<!-- Message paragraph -->
+									<div class="col-12">
+										<p id="form-message" style="display: none;"></p>
+									  </div>
 								</div>
 							</form>
 						</section>
@@ -104,15 +113,52 @@
 					<ul>
 						<li>&copy; AQM Software</li>
 						<li>
-							<a href="#" class="icon brands fa-youtube"><span class="label">Youtube</span></a>
-							<a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
-							<a href="#" class="icon brands fa-discord"><span class="label">Discord</span></a>
-							<a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a>
+							<!-- Social media links -->
+							<a href="https://www.youtube.com/@AQMSoftware" class="icon brands fa-youtube" target="_blank"><span class="label">Youtube</span></a>
+							<a href="https://x.com/Adrianqm_10" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a>
+							<a href="https://www.instagram.com/adrianqm__" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a>
+							<a href="mailto:adrian.quirosmartin@gmail.com?subject=%5BContact%5D" class="icon solid fa-envelope"><span class="label">Email</span></a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</section>
+
+		<!-- EmailJS SDK -->
+		<script type="text/javascript"
+				src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+		</script>
+		<script type="text/javascript">
+			(function () {
+				// Initialize EmailJS with your User ID
+				emailjs.init({
+					publicKey: "-ClF1wAbdOHpcm7SX",
+				});
+			})();
+
+			// Function to send email when form is submitted
+			document.getElementById('contact-form').addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				// These parameters are the ones you'll use in your email template in EmailJS
+				const serviceID = 'service_whngh5s';
+				const templateID = 'template_5lvdzce';
+				const formMessage = document.getElementById('form-message');
+
+				emailjs.sendForm(serviceID, templateID, this)
+				.then(() => {
+					// Success message
+					formMessage.style.color = 'white';
+					formMessage.textContent = 'Your message has been sent successfully!';
+					formMessage.style.display = 'block';
+				}, (err) => {
+					// Error message
+					formMessage.style.color = 'red';
+					formMessage.textContent = 'Failed to send message. Please try again.';
+					formMessage.style.display = 'block';
+				});
+			});
+		</script>
 
 	</div>
 
